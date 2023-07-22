@@ -14,6 +14,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        let titleTextAttributes = [
+           NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 28),
+           NSAttributedString.Key.foregroundColor: UIColor.white
+        ]
+        UINavigationBar.appearance().titleTextAttributes = titleTextAttributes
         return true
     }
 
