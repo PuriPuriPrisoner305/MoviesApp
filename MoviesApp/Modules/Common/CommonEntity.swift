@@ -51,7 +51,7 @@ enum URLPath {
     case APIKey
     case posterImage
     case avatarImage
-    case discoverMovie(page: Int)
+    case discoverMovie(genre: Int, page: Int)
     case movieDetail(id: Int)
     case genreList
     
@@ -63,9 +63,9 @@ enum URLPath {
             return "https://image.tmdb.org/t/p/w500/"
         case .avatarImage:
             return "https://image.tmdb.org/t/p/w200/"
-        case .discoverMovie(let page):
+        case .discoverMovie(let genre, let page):
             let url =
-            "https://api.themoviedb.org/3/discover/movie?api_key=\(URLPath.APIKey.link)&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=\(page)&with_watch_monetization_types=flatrate"
+            "https://api.themoviedb.org/3/discover/movie?api_key=\(URLPath.APIKey.link)&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=\(page)&with_genres=\(genre)&with_watch_monetization_types=flatrate"
             return url
         case .movieDetail(let id):
             let url = "https://api.themoviedb.org/3/movie/\(id)?api_key=\(URLPath.APIKey.link)&append_to_response=videos,images,reviews"

@@ -6,6 +6,11 @@
 //
 
 import UIKit
+import RxSwift
+
+protocol GenreCellDelegate {
+    func didTap(genre: GenreData)
+}
 
 class GenreCollectionViewCell: UICollectionViewCell {
 
@@ -16,9 +21,15 @@ class GenreCollectionViewCell: UICollectionViewCell {
         return UINib(nibName: identifier, bundle: nil)
     }()
     
+    var genreData: GenreData?
+    var delegate: GenreCellDelegate?
+    var bag = DisposeBag()
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         setup()
+        setupAction()
     }
     
     private func setup() {
@@ -29,6 +40,16 @@ class GenreCollectionViewCell: UICollectionViewCell {
         self.layer.masksToBounds = true
         // You can also set background color here if needed
         self.backgroundColor = UIColor.clear
+    }
+    
+    func setupAction() {
+        self.contentView.rx.tapGesture()
+            .when(.recognized)
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                guard let data = genreData else { return }
+                self.delegate?.didTap(genre: data)
+            }).disposed(by: bag)
     }
 
 }

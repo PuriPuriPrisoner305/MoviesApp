@@ -39,7 +39,7 @@ class ApiManager {
             return Disposables.create {
                 task.cancel()
             }
-        }
+        }.observe(on: MainScheduler.instance)
     }
     
     // MARK: convert string to image url with size of 500
@@ -58,15 +58,15 @@ class ApiManager {
 extension ApiManager {
     enum APIEndpoint {
         case genreList
-        case movieDiscover(page: Int)
+        case movieDiscover(genre: Int, page: Int)
         case movieDetail(id: Int)
         
         func url() -> String {
             switch self {
             case .genreList:
                 return URLPath.genreList.link
-            case .movieDiscover(let page):
-                return URLPath.discoverMovie(page: page).link
+            case .movieDiscover(let genre, let page):
+                return URLPath.discoverMovie(genre: genre, page: page).link
             case .movieDetail(let id):
                 return URLPath.movieDetail(id: id).link
             }

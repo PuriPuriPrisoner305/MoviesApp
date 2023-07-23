@@ -31,6 +31,8 @@ class HomeScreenView: UIViewController {
                 cellIdentifier: GenreCollectionViewCell.identifier,
                 cellType: GenreCollectionViewCell.self)) { (index, item, cell) in
                     cell.genreNameLabel.text = item.name ?? "-"
+                    cell.genreData = item
+                    cell.delegate = self
             }
             .disposed(by: bag)
         
@@ -41,7 +43,7 @@ class HomeScreenView: UIViewController {
         presenter.onSuccessFetchData
             .subscribe(onNext: { [weak self] value in
                 guard let self = self else { return }
-                print("genreList: \(presenter.genreList)")
+                
             }).disposed(by: bag)
     }
     
@@ -67,11 +69,17 @@ extension HomeScreenView: UICollectionViewDelegate, UICollectionViewDataSource, 
         let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
         let totalSpace = 30 + (flowLayout.minimumInteritemSpacing * CGFloat(1))
         let size = Int((collectionView.bounds.width - totalSpace) / CGFloat(2))
-        
         return CGSize(width: size, height: 50)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
+    }
+}
+
+extension HomeScreenView: GenreCellDelegate {
+    func didTap(genre: GenreData) {
+        guard let navigation = navigationController else { return }
+        presenter.navigateToDiscover(navigation: navigation, genre: genre)
     }
 }
