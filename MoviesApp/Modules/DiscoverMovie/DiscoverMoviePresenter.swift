@@ -15,6 +15,7 @@ class DiscoverMoviePresenter {
     var pageCounter = 1
     
     var interactor = DiscoverMovieInteractor()
+    var router = DiscoverMovieRouter()
     var bag = DisposeBag()
     
     // MARK: API Call for movies discover
@@ -47,13 +48,6 @@ class DiscoverMoviePresenter {
 // MARK: Navigator
 extension DiscoverMoviePresenter {
     func navigateToMovieDetailView(id: Int, title: String, from navigation: UINavigationController) {
-//        let storyboardId = String(describing: MovieDetailView.self)
-//        let storyboard = UIStoryboard(name: storyboardId, bundle: nil)
-//        guard let view = storyboard.instantiateViewController(withIdentifier: storyboardId) as? MovieDetailView else {
-//            fatalError(ErrorType.storyboardLoadFailed.description)
-//        }
-//        view.navigationItem.title = title
-//        view.movieID = id
-//        navigation.pushViewController(view, animated: true)
+        router.navigateToMovieDetailView(id: id, title: title, from: navigation)
     }
 }
