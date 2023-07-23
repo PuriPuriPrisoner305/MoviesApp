@@ -35,7 +35,6 @@ class DiscoverMovieView: UIViewController {
         setupAction()
         setupNetworkMonitor()
         registerDataBinding()
-        presenter.fetchData(genre: genre)
     }
     
     func registerDataBinding() {

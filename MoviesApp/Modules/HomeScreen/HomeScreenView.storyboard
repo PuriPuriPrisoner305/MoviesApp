@@ -11,34 +11,77 @@
         <scene sceneID="s0d-6b-0kx">
             <objects>
                 <viewController storyboardIdentifier="HomeScreenView" id="Y6W-OH-hqX" customClass="HomeScreenView" customModule="MoviesApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                    <stackView key="view" opaque="NO" contentMode="scaleToFill" id="kPA-OU-uKt">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="n33-Lx-73V">
-                                <rect key="frame" x="0.0" y="133" width="393" height="685"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EAY-FU-4o3" userLabel="Genre View">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                <subviews>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="XIQ-ph-49S">
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="5nG-2R-P2E">
+                                            <size key="itemSize" width="128" height="128"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells/>
+                                    </collectionView>
+                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="jqC-6n-ANs">
-                                    <size key="itemSize" width="128" height="128"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells/>
-                            </collectionView>
+                                <constraints>
+                                    <constraint firstItem="XIQ-ph-49S" firstAttribute="leading" secondItem="EAY-FU-4o3" secondAttribute="leading" id="Ld1-6a-vAP"/>
+                                    <constraint firstAttribute="trailing" secondItem="XIQ-ph-49S" secondAttribute="trailing" id="nEX-ZN-Bak"/>
+                                    <constraint firstAttribute="bottom" secondItem="XIQ-ph-49S" secondAttribute="bottom" id="r80-uB-aws"/>
+                                    <constraint firstItem="XIQ-ph-49S" firstAttribute="top" secondItem="EAY-FU-4o3" secondAttribute="top" id="vN2-rP-hW6"/>
+                                </constraints>
+                            </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pU9-Ie-Fnz" userLabel="Error View">
+                                <rect key="frame" x="0.0" y="0.0" width="30" height="852"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No network connection" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8g5-em-TOO" userLabel="Error Label">
+                                        <rect key="frame" x="15" y="385.33333333333331" width="0.0" height="21.666666666666686"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="baa-Qa-HIh">
+                                        <rect key="frame" x="-17.333333333333332" y="432" width="64.666666666666671" height="34.333333333333314"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Retry"/>
+                                    </button>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wifi.slash" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="GYz-KT-GOl">
+                                        <rect key="frame" x="-10" y="310.66666666666663" width="50" height="47.666666666666686"/>
+                                        <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="IZD-xQ-vHb"/>
+                                            <constraint firstAttribute="height" constant="50" id="vgz-IE-1FJ"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="8g5-em-TOO" secondAttribute="trailing" constant="15" id="7qO-wb-VKg"/>
+                                    <constraint firstItem="baa-Qa-HIh" firstAttribute="centerX" secondItem="8g5-em-TOO" secondAttribute="centerX" id="9cf-DC-doN"/>
+                                    <constraint firstItem="8g5-em-TOO" firstAttribute="centerY" secondItem="pU9-Ie-Fnz" secondAttribute="centerY" constant="-30" id="eny-SE-tMm"/>
+                                    <constraint firstItem="GYz-KT-GOl" firstAttribute="centerX" secondItem="pU9-Ie-Fnz" secondAttribute="centerX" id="gvg-qI-sS1"/>
+                                    <constraint firstItem="8g5-em-TOO" firstAttribute="top" secondItem="GYz-KT-GOl" secondAttribute="bottom" constant="25" id="m5H-iw-Lnh"/>
+                                    <constraint firstItem="baa-Qa-HIh" firstAttribute="top" secondItem="8g5-em-TOO" secondAttribute="bottom" constant="25" id="wZ3-gW-J9l"/>
+                                    <constraint firstItem="8g5-em-TOO" firstAttribute="leading" secondItem="pU9-Ie-Fnz" secondAttribute="leading" constant="15" id="y6q-EW-pOV"/>
+                                </constraints>
+                            </view>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="n33-Lx-73V" secondAttribute="trailing" id="4aV-ar-L2w"/>
-                            <constraint firstItem="n33-Lx-73V" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="30" id="661-Ea-6Lj"/>
-                            <constraint firstItem="n33-Lx-73V" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="Qp5-cc-bH3"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="n33-Lx-73V" secondAttribute="bottom" id="coE-Yg-L3z"/>
-                        </constraints>
-                    </view>
+                        <viewLayoutGuide key="safeArea" id="oMI-Em-dSG"/>
+                    </stackView>
                     <navigationItem key="navigationItem" id="a6c-NP-iCs"/>
                     <connections>
-                        <outlet property="genreCollectionView" destination="n33-Lx-73V" id="lgB-8L-xj6"/>
+                        <outlet property="errorLabel" destination="8g5-em-TOO" id="aMN-UK-YmZ"/>
+                        <outlet property="errorView" destination="pU9-Ie-Fnz" id="hEx-TK-f4p"/>
+                        <outlet property="genreCollectionView" destination="XIQ-ph-49S" id="zmF-Mw-zOI"/>
+                        <outlet property="genreView" destination="EAY-FU-4o3" id="GOo-MB-9r9"/>
+                        <outlet property="retryButton" destination="baa-Qa-HIh" id="Os8-nv-nfg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -64,4 +107,7 @@
             <point key="canvasLocation" x="64.885496183206101" y="3.5211267605633805"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="wifi.slash" catalog="system" width="128" height="101"/>
+    </resources>
 </document>
