@@ -10,13 +10,19 @@ import RxSwift
 import RxCocoa
 import Kingfisher
 import RxGesture
+import Network
 
 class DiscoverMovieView: UIViewController {
-
+    @IBOutlet weak var movieListView: UIView!
     @IBOutlet weak var movieCollectionView: UICollectionView!
+    @IBOutlet weak var errorView: UIView!
+    @IBOutlet weak var errorLabel: UILabel!
+    @IBOutlet weak var retryButton: UIButton!
     
     var apiManager = ApiManager()
     var bag = DisposeBag()
+    var monitor = NWPathMonitor()
+
     var presenter = DiscoverMoviePresenter()
     var genre: Int = 0
     
@@ -26,6 +32,8 @@ class DiscoverMovieView: UIViewController {
     }
     
     func setup() {
+        setupAction()
+        setupNetworkMonitor()
         registerDataBinding()
         presenter.fetchData(genre: genre)
     }
@@ -57,6 +65,46 @@ class DiscoverMovieView: UIViewController {
             }.disposed(by: bag)
         
         movieCollectionView.rx.setDelegate(self).disposed(by: bag)
+    }
+    
+    func setupAction() {
+        retryButton.rx.tapGesture()
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.presenter.fetchData(genre: genre)
+            }).disposed(by: bag)
+        
+        presenter.onSuccessFetchData
+            .subscribe(onNext: { [weak self] value in
+                guard let self = self else { return }
+                self.movieListView.isHidden = !value
+                self.errorView.isHidden = value
+                self.retryButton.isHidden = value
+                self.errorLabel.text = ErrorType.fetchFailed.description
+            }).disposed(by: bag)
+    }
+    
+    func setupNetworkMonitor() {
+        monitor.pathUpdateHandler = { path in
+            DispatchQueue.main.async {
+                if path.status == .satisfied {
+                    print(GeneralType.networkConnected.description)
+                    self.movieListView.isHidden = false
+                    self.errorView.isHidden = true
+                    self.presenter.fetchData(genre: self.genre)
+                } else {
+                    print(GeneralType.networkDisconnected.description)
+                    self.movieListView.isHidden = true
+                    self.errorView.isHidden = false
+                    self.errorLabel.text = ErrorType.noInternet.description
+                    self.retryButton.isHidden = true
+                }
+            }
+            print(path.isExpensive)
+        }
+        
+        let queue = DispatchQueue(label: "Monitor")
+        monitor.start(queue: queue)
     }
     
 }
